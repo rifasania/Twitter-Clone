@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Pengguna</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <h2>Edit Pengguna - {{ user['username'] }}</h2>
+        <a href="{{ url_for('users') }}" class="btn btn-primary">Kembali ke Daftar Pengguna</a>
+    </div>
+    
+    <form action="{{ url_for('edit_user', username=user['username']) }}" method="POST">
+        <label>Display Name</label>
+        <input type="text" name="display_name" value="{{ user['display_name'] }}" required>
+
+        <label>Bio</label>
+        <textarea name="bio" required>{{ user['bio'] }}</textarea>
+
+        <label>Tanggal Lahir</label>
+        <input type="date" name="tanggal_lahir" value="{{ user['tanggal_lahir'] }}" required>
+
+        <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+    </form>
+    
+</div>
+
+</body>
+</html>

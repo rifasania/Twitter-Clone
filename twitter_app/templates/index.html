@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Twitter Clone</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <h1>Twitter Clone</h1>
+        <a href="{{ url_for('users') }}" class="btn btn-primary">Kelola Pengguna</a>
+    </div>
+
+    <h2>Post Tweet Baru</h2>
+    <form action="{{ url_for('post_tweet') }}" method="POST">
+        <input type="text" name="username" placeholder="Username" required>
+        <textarea name="content" placeholder="Isi tweet" required></textarea>
+        <button type="submit" class="btn btn-primary">Post Tweet</button>
+    </form>
+
+    <h2>Daftar Tweet</h2>
+    {% for tweet in tweets %}
+        <div class="tweet">
+            <p><strong>{{ tweet['username'] }}</strong> - {{ tweet['created_at'].strftime("%Y-%m-%d %H:%M") }}</p>
+            <p>{{ tweet['content'] }}</p>
+            <p>Likes: {{ tweet['likes'] }} | Komentar: {{ tweet['comment_count'] }}</p>
+            <div class="tweet-buttons">
+                <a href="{{ url_for('like_tweet', tweet_id=tweet['tweet_id']) }}" class="btn btn-primary">Like</a>
+                <a href="{{ url_for('tweet', tweet_id=tweet['tweet_id']) }}" class="btn btn-primary">Komentar</a>
+                <a href="{{ url_for('delete_tweet', tweet_id=tweet['tweet_id']) }}" class="btn btn-danger">Hapus</a>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+
+</body>
+</html>

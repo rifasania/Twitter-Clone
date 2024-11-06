@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Komentar Tweet</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <h2>Komentar pada Tweet</h2>
+        <a href="{{ url_for('index') }}" class="btn btn-primary">Kembali ke Beranda</a>
+    </div>
+
+    <div class="tweet">
+        <p><strong>{{ tweet['username'] }}</strong> - {{ tweet['created_at'].strftime("%Y-%m-%d %H:%M") }}</p>
+        <p>{{ tweet['content'] }}</p>
+        <p>Likes: {{ tweet['likes'] }}</p>
+    </div>
+
+    <h3>Tambah Komentar</h3>
+    <form action="{{ url_for('tweet', tweet_id=tweet['tweet_id']) }}" method="POST">
+        <input type="text" name="username" placeholder="Username" required>
+        <textarea name="text" placeholder="Tambah komentar" required></textarea>
+        <button type="submit" class="btn btn-primary">Tambah Komentar</button>
+    </form>
+
+    <h3>Komentar:</h3>
+    {% for comment in comments %}
+        <div class="comment">
+            <p><strong>{{ comment['username'] }}</strong> - {{ comment['created_at'].strftime("%Y-%m-%d %H:%M") }}</p>
+            <p>{{ comment['text'] }}</p>
+        </div>
+    {% endfor %}
+</div>
+
+</body>
+</html>
